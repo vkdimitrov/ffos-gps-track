@@ -1,0 +1,15 @@
+{ 
+"name": "GPS Tracker", 
+"developer": { "name": "Vladimir Dimitrov", "url": "http://vladko.org" },
+"description": "GPS Tracker", 
+"launch_path": "/index.html", 
+"icons": {
+	"60": "/img/icon60.png",
+	"128": "/img/icon128.png" },
+"type": "privileged",
+"permissions": {
+    "geolocation": {
+        "description" : "Used to locate me"
+    	}
+    }
+}
