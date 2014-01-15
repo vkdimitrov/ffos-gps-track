@@ -8,8 +8,7 @@
 	"128": "/img/icon128.png" },
 "type": "privileged",
 "permissions": {
-    "geolocation": {
-        "description" : "Used to locate me"
-    	}
+    "geolocation": { "description" : "Used to locate me" },
+    "device-storage:sdcard": { "access": "readwrite" }
     }
 }

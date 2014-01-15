@@ -1,14 +1,21 @@
 body {
-	background: #000;
-	color:#fff;
+
 }
 .prm {
 	display: none;
 }
 #content {
+	min-width: 100%;
+	min-height: 100%;
+	background-color: #fff;
+	color:#fff;
 	text-align: center;
 }
-#locate {
+.night{
+	background: #fff;
+	color:#000;
+}
+.btn {
 	background:red;
 	min-height: 30px;
 	width: 80%;
