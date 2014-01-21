@@ -17,21 +17,32 @@
      <h1>GPS Track</h1>
     </header>
       <div id="content" >
-          <button class="recomendet" id="locate">Start Trip</button>
-          <div id="searchResults"></div>
-          Latitude:<div id="cLat"></div>
-          Longitude:<div id="cLong"></div>
-          Heading:<div id="heading"></div>
-          Altitude:<div id="altitude"></div>
-          Distance:<div id="distance"></div>
-          Lux:<div id="lux"></div>
-          <button class="recomendet" id="save">Export Track</button>
+        <div id="map"></div>
+        <div id="searchResults">
+        <ul>
+          <li>Long:<span id="cLong"></span></li>
+          <li>Lat:<span id="cLat"></span></li>
+          <li class="half">Head:<span id="heading"></span></li>
+          <li class="half">Alt:<span id="altitude"></span></li>
+          <li class="half">Dist:<span id="distance"></span></li>
+          
+        </ul>
+          <!-- <div class="info">Long:<span id="cLong"></span></div>
+          <div class="info">Lat:<span id="cLat"></span></div>
+          <div style="clear:both">
+          <div class="info">Heading:<span id="heading"></span></div>
+          <div class="info">Altitude:<span id="altitude"></span></div>
+          <div style="clear:both">
+          <div class="info">Distance:<span id="distance"></span></div>
+          <div class="info">Lux:<span id="lux"></span></div>           -->
+        </div>
+        <button class="recomendet" id="locate">Start Trip</button>
+        <button class="recomendet" id="export">Export Track</button>    
       </div>
-      <div role="toolbar">
-        
-      </div>
+
    </section>
     <script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
     <script type="text/javascript" src="resources/js/app.js"></script>
   </body>
 </html>

@@ -1,5 +1,6 @@
 var positions = new Array();
 var distance = 1;
+
 function findMyCurrentLocation(){
 	var geoService = navigator.geolocation;
 	if (geoService) {
@@ -20,6 +21,33 @@ function showCurrentLocation(position){
 	$('#heading').html(position.coords.heading);
 	$('#altitude').html(position.coords.altitude);
 	$('#distance').html(distance);
+
+	//google map
+	var latlng = new google.maps.LatLng (position.coords.latitude, position.coords.longitude);
+		
+		//Set Google Map options
+		var options = { 
+	    zoom : 15, 
+	    center : latlng, 
+	    mapTypeId : google.maps.MapTypeId.ROADMAP 
+	    };
+	 
+	  var $content = $("#map");
+	 
+	  //Set the height of the div containing the Map to rest of the screen
+	  $content.height(screen.height - 190);
+	  
+	  //Display the Map
+	  var map = new google.maps.Map ($content[0], options);
+	 /*
+	  //Change to the map-page
+	  $.mobile.changePage ($("#map-page"));
+	 */
+	  //Create the Marker and Drop It
+	  new google.maps.Marker ({ map : map, 
+	                            animation : google.maps.Animation.DROP,
+	                            position : latlng  
+	                          });  
 }
 
 function errorHandler(error){
@@ -67,23 +95,28 @@ function calculateDistance(lat1,lat2,lon1,lon2){
 	        Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
 	var d = R * c;
-	return d;
+	
+	return d
 }
 
 window.addEventListener("devicelight", function (event) {
 	var luminosity = event.value;
 	$('#lux').html(luminosity);
 	if(luminosity < 10)
-		$('#content').addClass('night');
+		$('#searchResults').addClass('night');
 	else
-		$('#content').removeClass('night');
+		$('#searchResults').removeClass('night');
 });
 
 $(document).ready(function(){
+	
 	$("#locate").click(function(){
 	    findMyCurrentLocation();
+	    $("#locate").hide();
+	    $("#export").show();
+	    $("#searchResults").show();
 	});
-	$("#save").click(function(){
+	$("#export").click(function(){
 	    writeTrack();
 	});
 });
