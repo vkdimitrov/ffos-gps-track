@@ -80,7 +80,7 @@ function showCurrentLocation(position){
 }
 
 function errorHandler(error){
-	alert("GPS ERROR:"+error.code);
+	//alert("GPS ERROR:"+error.code);
 }
 
 //write track info to the sd card
