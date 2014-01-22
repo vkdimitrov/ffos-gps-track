@@ -7,10 +7,9 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="resources/css/layout.css">
   </head>
-  <body>
   <body role="application">
   <section role="region" id="main">
-    <header>
+    <header class="toph">
      <menu type="toolbar">
      	<button><span class="icon icon-menu">menu</span</button>
      </menu>
@@ -19,7 +18,7 @@
       <div id="content" >
         <div id="map"></div>
         <div id="searchResults">
-        <ul>
+        <ul class="info">
           <li>Long:<span id="cLong"></span></li>
           <li>Lat:<span id="cLat"></span></li>
           <li class="half">Head:<span id="heading"></span></li>
@@ -42,7 +41,7 @@
 
    </section>
     <script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+    <script type="text/javascript" src="resources/js/gmaps.js"></script>
     <script type="text/javascript" src="resources/js/app.js"></script>
   </body>
 </html>

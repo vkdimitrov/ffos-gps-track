@@ -1,5 +1,12 @@
 var positions = new Array();
+var path = new Array();
 var distance = 1;
+
+var geo_options = {
+	enableHighAccuracy: true, 
+	maximumAge        : 30000, 
+	timeout           : 27000
+};
 
 function findMyCurrentLocation(){
 	var geoService = navigator.geolocation;
@@ -12,10 +19,25 @@ function findMyCurrentLocation(){
 
 function showCurrentLocation(position){
 	positions.push(position);
+	path.push(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 	//$('#searchResults').html(positions[positions.lenght-1].coords.latitude);
 	
-	//if(positions.length>1)
-	distance = distance + calculateDistance(positions[positions.length-2].coords.latitude,position.coords.latitude,positions[positions.length-2].coords.longitude,position.coords.longitude);
+	if(positions.length>1)
+	{
+		var lat0 = positions[positions.length-2].coords.latitude;
+		var lat1 = position.coords.latitude
+		var long0 = positions[positions.length-2].coords.longitude;
+		var long1 = position.coords.longitude;
+		distance = distance + calculateDistance(lat0, lat1, long0, long1);
+
+	  	var polyline = new google.maps.Polyline({
+            path: path,
+            strokeColor: "#ff0000",
+            strokeOpacity: 0.6,
+            strokeWeight: 5
+        });        
+	}
+	
 	$('#cLat').html(position.coords.latitude);
 	$('#cLong').html(position.coords.longitude);
 	$('#heading').html(position.coords.heading);
@@ -25,56 +47,54 @@ function showCurrentLocation(position){
 	//google map
 	var latlng = new google.maps.LatLng (position.coords.latitude, position.coords.longitude);
 		
-		//Set Google Map options
-		var options = { 
+	//Set Google Map options
+	var options = { 
 	    zoom : 15, 
 	    center : latlng, 
 	    mapTypeId : google.maps.MapTypeId.ROADMAP 
-	    };
+    };
 	 
-	  var $content = $("#map");
-	 
-	  //Set the height of the div containing the Map to rest of the screen
-	  $content.height(screen.height - 190);
-	  
-	  //Display the Map
-	  var map = new google.maps.Map ($content[0], options);
-	 /*
-	  //Change to the map-page
-	  $.mobile.changePage ($("#map-page"));
-	 */
-	  //Create the Marker and Drop It
-	  new google.maps.Marker ({ map : map, 
-	                            animation : google.maps.Animation.DROP,
-	                            position : latlng  
-	                          });  
+	var $content = $("#map");
+
+	//Set the height of the div containing the Map to rest of the screen
+	$content.height(screen.height - 190);
+
+	//Display the Map
+	var map = new google.maps.Map ($content[0], options);
+
+	//Create the Marker and Drop It
+	new google.maps.Marker ({ map : map, 
+	                        animation : google.maps.Animation.DROP,
+	                        position : latlng  
+	                      });  
+  
+	polyline.setMap(map);
 }
 
 function errorHandler(error){
-	$('#searchResults').html(error.code);
+	alert(error.code);
 }
 
-var geo_options = {
-	enableHighAccuracy: true, 
-	maximumAge        : 30000, 
-	timeout           : 27000
-};
-
 function writeTrack(){
+	var cur_time = new Date().valueOf();
+	var to_file = new Array();
+	for (var i=0;i<positions.length;i++)
+	{ 
+		to_file.push(positions[i].coords.latitude+","+positions[i].coords.longitude+"\n");
+	}
 	var sdcard = navigator.getDeviceStorage("sdcard");
-	//var file_content = 
-	var file   = new Blob(["<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?><gpx><trk><name>Example GPX Document</name><trkseg><trkpt lat=\""+1+"\" lon=\""+2+"\"></trkpt></trkseg></trk></gpx>"], {type: "text/xml"});
+	
+	var file   = new Blob([to_file], {type: "text/plain"});
 
-	var request = sdcard.addNamed(file, "my-file.gpx");
+	var request = sdcard.addNamed(file, "track"+cur_time+".txt");
 
 	request.onsuccess = function () {
 	  var name = this.result;
-	  console.log('File "' + name + '" successfully wrote on the sdcard storage area');
+	  alert('File "' + name + '" successfully wrote on the sdcard storage area');
 	}
 
-	// An error typically occur if a file with the same name already exist
 	request.onerror = function () {
-	  console.warn('Unable to write the file: ' + this.error);
+	  alert('Unable to write the file: ' + this.error);
 	}
 }
 
@@ -101,15 +121,14 @@ function calculateDistance(lat1,lat2,lon1,lon2){
 
 window.addEventListener("devicelight", function (event) {
 	var luminosity = event.value;
-	$('#lux').html(luminosity);
 	if(luminosity < 10)
-		$('#searchResults').addClass('night');
+		$('#searchResults').toggleClass('night');
 	else
-		$('#searchResults').removeClass('night');
+		$('#searchResults').toggleClass('night');
 });
 
 $(document).ready(function(){
-	
+	var lock = navigator.requestWakeLock('screen');
 	$("#locate").click(function(){
 	    findMyCurrentLocation();
 	    $("#locate").hide();
