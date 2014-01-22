@@ -1,47 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>GPS Track</title>
-    <meta name="description" content="Track your trips by GPS in your phone">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="resources/css/layout.css">
-  </head>
-  <body role="application">
+<head>
+  <meta charset="utf-8">
+  <title>GPS Track</title>
+  <meta name="description" content="Track your trips by GPS in your phone">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="resources/css/layout.css">
+</head>
+<body role="application">
   <section role="region" id="main">
     <header class="toph">
-     <menu type="toolbar">
-     	<button><span class="icon icon-menu">menu</span</button>
-     </menu>
-     <h1>GPS Track</h1>
+      <menu type="toolbar">
+        <button><span class="icon icon-menu">menu</span</button>
+      </menu>
+      <h1>GPS Track</h1>
     </header>
-      <div id="content" >
-        <div id="map"></div>
-        <div id="searchResults">
+    <div id="content" >
+      <div id="map"></div>
+      <div id="searchResults">
         <ul class="info">
           <li>Long:<span id="cLong"></span></li>
           <li>Lat:<span id="cLat"></span></li>
           <li class="half">Head:<span id="heading"></span></li>
           <li class="half">Alt:<span id="altitude"></span></li>
           <li class="half">Dist:<span id="distance"></span></li>
-          
         </ul>
-          <!-- <div class="info">Long:<span id="cLong"></span></div>
-          <div class="info">Lat:<span id="cLat"></span></div>
-          <div style="clear:both">
-          <div class="info">Heading:<span id="heading"></span></div>
-          <div class="info">Altitude:<span id="altitude"></span></div>
-          <div style="clear:both">
-          <div class="info">Distance:<span id="distance"></span></div>
-          <div class="info">Lux:<span id="lux"></span></div>           -->
-        </div>
-        <button class="recomendet" id="locate">Start Trip</button>
-        <button class="recomendet" id="export">Export Track</button>    
       </div>
-
-   </section>
-    <script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="resources/js/gmaps.js"></script>
-    <script type="text/javascript" src="resources/js/app.js"></script>
-  </body>
+      <button class="recomendet" id="locate">Start Trip</button>
+      <button class="recomendet" id="export">Export Track</button>    
+    </div>
+  </section>
+<script type="text/javascript" src="resources/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="resources/js/gmaps.js"></script>
+<script type="text/javascript" src="resources/js/app.js"></script>
+</body>
 </html>
